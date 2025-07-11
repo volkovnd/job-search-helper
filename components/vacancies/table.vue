@@ -47,16 +47,42 @@ const columns: QTableColumn<Vacancy>[] = [
     }
   },
   {
-    field: 'city',
-    label: 'Город',
+    field: 'location',
+    label: 'Расположение',
     name: 'city',
-    align: 'left'
+    align: 'left',
+    format(val) {
+      let result = ''
+
+      if (val?.country) {
+        result += val.country
+
+        if (val?.city) {
+          result += '/'
+        }
+      }
+
+      if (val?.city) {
+        result += val.city
+      }
+
+      return result
+    },
+    sortable: true
   },
   {
     field: 'salary',
     label: 'З/П',
     name: 'salary',
     align: 'left',
+    sortable: true,
+    sort(a, b) {
+      return a.min && b.min
+        ? a.min - b.min
+        : a.max && b.max
+          ? a.max - b.max
+          : 0
+    },
     format(salary) {
       let result = ''
 

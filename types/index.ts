@@ -1,3 +1,8 @@
+export type Location = {
+  country?: string
+  city?: string
+}
+
 export type Vacancy = {
   host: string
   url: string
@@ -7,5 +12,5 @@ export type Vacancy = {
     currency?: string
     calcedBeforeTaxes?: boolean
   }
-  city?: string
+  location?: Location
 }

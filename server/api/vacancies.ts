@@ -13,31 +13,50 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
         currency: 'rub',
         calcedBeforeTaxes: false
       },
-      city: 'Moskow'
+      location: {
+        country: 'Russia',
+        city: 'Moscow'
+      }
     },
     {
       host: 'habr',
-      url: 'https://career.habr.com/vacancies/1000159400'
+      url: 'https://career.habr.com/vacancies/1000159400',
+      location: {
+        country: 'Russia'
+      }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000154003',
-      city: 'Moskow'
+      location: {
+        city: 'Moscow',
+        country: 'Russia'
+      }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000148569',
-      city: 'Moskow'
+      location: {
+        city: 'Moscow',
+        country: 'Russia'
+      }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000103382',
-      city: 'Moskow'
+      location: {
+        city: 'Moscow',
+        country: 'Russia'
+      }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000158927',
-      city: 'Moskow'
+      location: {
+        city: 'Moscow',
+        country: 'Russia'
+
+      }
     },
     {
       host: 'hh',
@@ -48,7 +67,10 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
         calcedBeforeTaxes: false,
         currency: 'rub'
       },
-      city: 'Saint-Petersburg'
+      location: {
+        city: 'Saint-Petersburg',
+        country: 'Russia'
+      }
     },
     {
       host: 'hh',
@@ -59,7 +81,10 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
         calcedBeforeTaxes: false,
         currency: 'rub'
       },
-      city: 'Moskow'
+      location: {
+        city: 'Moscow',
+        country: 'Russia'
+      }
     },
     {
       host: 'hh',
@@ -70,17 +95,25 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
         max: 350000,
         calcedBeforeTaxes: false
       },
-      city: 'Saint-Petersburg'
+      location: {
+        city: 'Saint-Petersburg',
+        country: 'Russia'
+      }
     },
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122224028?query=vue&hhtmFrom=vacancy_search_list',
-      city: 'Cyprus'
+      location: {
+        city: 'Cyprus'
+      }
     },
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/121898819?query=vue&hhtmFrom=vacancy_search_list',
-      city: 'Moskow',
+      location: {
+        city: 'Moscow',
+        country: 'Russia'
+      },
       salary: {
         max: 300000,
         calcedBeforeTaxes: false,
@@ -90,7 +123,9 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122595294?query=vue&hhtmFrom=vacancy_search_list',
-      city: 'USA',
+      location: {
+        country: 'USA'
+      },
       salary: {
         max: 4000,
         min: 2500,
@@ -101,7 +136,9 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122222171?query=vue&hhtmFrom=vacancy_search_list',
-      city: 'Saint-Petersburg',
+      location: {
+        city: 'Saint-Petersburg', country: 'Russia'
+      },
       salary: {
         max: 270000,
         calcedBeforeTaxes: false,
@@ -111,7 +148,9 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122344165?query=vue&hhtmFrom=vacancy_search_list',
-      city: 'Rostov na donu',
+      location: {
+        city: 'Rostov na donu', country: 'Russia'
+      },
       salary: {
         max: 400000,
         calcedBeforeTaxes: false,
