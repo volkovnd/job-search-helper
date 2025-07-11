@@ -92,6 +92,13 @@ export default defineNuxtConfig({
         },
         QPage: {
           padding: true
+        },
+        QTable: {
+          loadingLabel: 'Загрузка...',
+          tableHeaderClass: 'bg-grey-3'
+        },
+        QInnerLoading: {
+          label: 'Загрузка...'
         }
       }
     },
