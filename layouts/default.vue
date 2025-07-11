@@ -4,12 +4,13 @@
   >
     <q-header
       elevated
-      class="bg-primary text-white"
+      class="q-px-md bg-primary text-white"
       height-hint="98"
     >
       <q-toolbar>
         <q-toolbar-title
           class="cursor-pointer"
+          shrink
           @click="navigateTo('/')"
         >
           Job helper
@@ -19,8 +20,8 @@
           stretch
         >
           <q-route-tab
-            to="/"
-            label="Home"
+            :to="{ name: 'vacancies' }"
+            label="Vacancies"
           />
         </q-tabs>
       </q-toolbar>

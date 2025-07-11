@@ -15,6 +15,7 @@ export default defineNuxtConfig({
         lang: 'ru',
         translate: 'no'
       },
+      title: 'Job helper',
       meta: [
         {
           name: 'google',

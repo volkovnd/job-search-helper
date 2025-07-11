@@ -20,8 +20,12 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  alias: '/'
+})
+
 useSeoMeta({
-  title: 'Home page'
+  title: 'Vacancies'
 })
 
 const { data, pending } = await useFetch(
