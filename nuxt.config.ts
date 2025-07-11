@@ -11,6 +11,16 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'ru',
+        translate: 'no'
+      },
+      meta: [
+        {
+          name: 'google',
+          content: 'notranslate'
+        }
+      ],
       link: [
         {
           rel: 'shortcut icon',
