@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
-    '@nuxt/fonts'
+    '@nuxt/fonts',
+    '@nuxtjs/stylelint-module'
   ],
   devtools: {
     enabled: true, telemetry: false
@@ -54,6 +55,15 @@ export default defineNuxtConfig({
           'latin'
         ]
       }
+    ]
+  },
+
+  stylelint: {
+    cache: false,
+    extensions: [
+      'css',
+      'vue',
+      'scss'
     ]
   }
 })
