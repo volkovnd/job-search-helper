@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/fonts',
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    'nuxt-quasar-ui'
   ],
   devtools: {
     enabled: true, telemetry: false
@@ -56,6 +57,39 @@ export default defineNuxtConfig({
         ]
       }
     ]
+  },
+
+  quasar: {
+    lang: 'ru',
+    extras: {
+      font: null
+    },
+    cssAddon: true,
+    sassVariables: 'assets/scss/variables.scss',
+    components: {
+      defaults: {
+        QBtn: {
+          noCaps: true
+        },
+        QTabs: {
+          noCaps: true
+        },
+        QTab: {
+          noCaps: true
+        },
+        QRouteTab: {
+          noCaps: true
+        },
+        QPage: {
+          padding: true
+        }
+      }
+    },
+    config: {
+      brand: {
+        primary: '#066a45'
+      }
+    }
   },
 
   stylelint: {

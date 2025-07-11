@@ -66,5 +66,14 @@
     "vue",
     "scss"
   ],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "nuxtr.vueFiles.style.defaultLanguage": "scss",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "scss.scannerExclude": [
+    "**/.git",
+    "**/node_modules",
+    "**/bower_components",
+    "**/.output",
+    "**/.nuxt",
+    "**/dist"
+  ],
 }
