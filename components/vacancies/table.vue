@@ -2,6 +2,7 @@
   <q-table
     v-bind="$props"
     :columns="columns"
+    :sort-method="sortMethod"
   >
     <template #body-cell-url="scope">
       <q-td :props="scope">
@@ -13,15 +14,31 @@
         >{{ scope.value }}</nuxt-link>
       </q-td>
     </template>
+
+    <template #body-cell-salary="scope">
+      <q-td :props="scope">
+        {{ scope.value }}
+
+        <q-tooltip v-if="scope.row?.salary?.currency !== 'RUB'">
+          <div style="font-size: 14px">
+            По курсу {{ currenciesStore.getCurrencyExchangeRate(scope.row?.salary?.currency).toFixed(2) }} руб за 1 {{ scope.row?.salary?.currency }}:<br>
+            <span v-if="scope.row?.salary?.min">{{ prettifyNumber(Math.round(scope.row.salary.min * currenciesStore.getCurrencyExchangeRate(scope.row?.salary?.currency))) }}</span>
+            -
+            <span v-if="scope.row?.salary?.max">{{ prettifyNumber(Math.round(scope.row.salary.max * currenciesStore.getCurrencyExchangeRate(scope.row?.salary?.currency))) }}</span>
+            RUB
+          </div>
+        </q-tooltip>
+      </q-td>
+    </template>
   </q-table>
 </template>
 
 <script lang="ts" setup>
 import type { QTableColumn, QTableProps } from 'quasar'
-import type { Vacancy } from '~/types'
+import type { Salary, Vacancy } from '~/types'
 
 type VacanciesTableProps = Omit<QTableProps, 'rows'> & {
-  rows: Readonly<Vacancy[]>
+  rows: Vacancy[]
 }
 
 withDefaults(defineProps<VacanciesTableProps>(),
@@ -29,45 +46,45 @@ withDefaults(defineProps<VacanciesTableProps>(),
     pagination: () => ({
       rowsPerPage: 0
     }),
-    hidePagination: true
+    hidePagination: true,
+    tableRowClassFn: (row: Vacancy) => {
+      if (row.location?.city === 'Санкт-Петербург') {
+        return 'bg-grey-3'
+      }
+
+      return ''
+    }
   })
+const currenciesStore = useCurrenciesStore()
+
+const reverseString = (input: string) => input.split('').reverse()
+  .join('')
+
+const prettifyNumber = (num: number) => reverseString(reverseString(num.toString()).replace(/(.{3})/g, '$1 '))
 
 const columns: QTableColumn<Vacancy>[] = [
   {
     field: 'host',
     label: 'Хост',
     name: 'host',
-    align: 'left',
-    format(val) {
-      switch (val) {
-        case 'hh': return 'hh.ru'
-        case 'habr': return 'career.habr.ru'
-        default: return '-'
-      }
-    }
+    align: 'left'
   },
   {
-    field: 'location',
-    label: 'Расположение',
+    field(row) {
+      return row.location?.country
+    },
+    label: 'Страна',
+    name: 'country',
+    align: 'left',
+    sortable: true
+  },
+  {
+    field(row) {
+      return row.location?.city
+    },
+    label: 'Город',
     name: 'city',
     align: 'left',
-    format(val) {
-      let result = ''
-
-      if (val?.country) {
-        result += val.country
-
-        if (val?.city) {
-          result += '/'
-        }
-      }
-
-      if (val?.city) {
-        result += val.city
-      }
-
-      return result
-    },
     sortable: true
   },
   {
@@ -77,26 +94,36 @@ const columns: QTableColumn<Vacancy>[] = [
     align: 'left',
     sortable: true,
     sort(a, b) {
-      return a.min && b.min
-        ? a.min - b.min
-        : a.max && b.max
-          ? a.max - b.max
-          : 0
+      const getAverageValue = (input?: Salary, second?: Salary) => {
+        if (!input) return 0
+
+        const min = (input.min || 0) * currenciesStore.getCurrencyExchangeRate(input.currency) || (second?.min || 0) * currenciesStore.getCurrencyExchangeRate(second?.currency) || 0
+
+        // Максимума не может не быть, если есть вообще хоть какая-то информация о ЗП
+        const max = input.max
+
+        return (min + max) / 2
+      }
+
+      return getAverageValue(a, b) - getAverageValue(b, a)
     },
-    format(salary) {
+    format(salary: Vacancy['salary']) {
+      if (!salary) return ''
+
       let result = ''
 
       if (salary?.min) {
-        result += `${salary.min}`
-      }
-      if (salary?.min && salary?.max) result += ' - '
+        result += `От ${prettifyNumber(salary.min)}`
 
-      if (salary?.max) {
-        result += `${salary.max}`
+        if (salary?.max) result += ` до ${prettifyNumber(salary.max)}`
+      } else if (salary?.max) {
+        result += `До ${prettifyNumber(salary.max)}`
       }
 
-      if (salary?.currency) {
-        result += ` ${salary.currency}`
+      result += ` ${salary.currency}`
+
+      if (result) {
+        result += ` ${salary?.calcedBeforeTaxes ? 'до уплаты налогов' : 'на руки'}`
       }
 
       return result

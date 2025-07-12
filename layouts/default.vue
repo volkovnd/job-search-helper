@@ -5,7 +5,6 @@
     <q-header
       elevated
       class="q-px-md bg-primary text-white"
-      height-hint="98"
     >
       <q-toolbar>
         <q-toolbar-title

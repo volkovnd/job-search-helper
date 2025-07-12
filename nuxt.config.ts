@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/fonts',
     '@nuxtjs/stylelint-module',
-    'nuxt-quasar-ui'
+    'nuxt-quasar-ui',
+    '@pinia/nuxt'
   ],
   devtools: {
     enabled: true, telemetry: false
@@ -30,6 +31,9 @@ export default defineNuxtConfig({
         }
       ]
     }
+  },
+  runtimeConfig: {
+    exchangeRateAccessKey: ''
   },
   compatibilityDate: '2025-05-15',
   telemetry: {

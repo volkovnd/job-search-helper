@@ -28,7 +28,7 @@ useSeoMeta({
   title: 'Vacancies'
 })
 
-const { data, pending } = await useFetch(
+const { data, pending } = await useLazyFetch(
   '/api/vacancies',
   {
     key: 'vacancies',

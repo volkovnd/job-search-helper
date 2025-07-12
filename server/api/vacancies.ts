@@ -10,51 +10,51 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
       salary: {
         min: 250000,
         max: 300000,
-        currency: 'rub',
+        currency: 'RUB',
         calcedBeforeTaxes: false
       },
       location: {
-        country: 'Russia',
-        city: 'Moscow'
+        country: 'Россия',
+        city: 'Москва'
       }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000159400',
       location: {
-        country: 'Russia'
+        country: 'Россия'
       }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000154003',
       location: {
-        city: 'Moscow',
-        country: 'Russia'
+        city: 'Москва',
+        country: 'Россия'
       }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000148569',
       location: {
-        city: 'Moscow',
-        country: 'Russia'
+        city: 'Москва',
+        country: 'Россия'
       }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000103382',
       location: {
-        city: 'Moscow',
-        country: 'Russia'
+        city: 'Москва',
+        country: 'Россия'
       }
     },
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000158927',
       location: {
-        city: 'Moscow',
-        country: 'Russia'
+        city: 'Москва',
+        country: 'Россия'
 
       }
     },
@@ -65,11 +65,11 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
         min: 250000,
         max: 300000,
         calcedBeforeTaxes: false,
-        currency: 'rub'
+        currency: 'RUB'
       },
       location: {
-        city: 'Saint-Petersburg',
-        country: 'Russia'
+        city: 'Санкт-Петербург',
+        country: 'Россия'
       }
     },
     {
@@ -79,52 +79,52 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
         min: 200000,
         max: 340000,
         calcedBeforeTaxes: false,
-        currency: 'rub'
+        currency: 'RUB'
       },
       location: {
-        city: 'Moscow',
-        country: 'Russia'
+        city: 'Москва',
+        country: 'Россия'
       }
     },
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122575814?query=vue&hhtmFrom=vacancy_search_list',
       salary: {
-        currency: 'rub',
+        currency: 'RUB',
         min: 265000,
         max: 350000,
         calcedBeforeTaxes: false
       },
       location: {
-        city: 'Saint-Petersburg',
-        country: 'Russia'
+        city: 'Санкт-Петербург',
+        country: 'Россия'
       }
     },
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122224028?query=vue&hhtmFrom=vacancy_search_list',
       location: {
-        city: 'Cyprus'
+        country: 'Кипр'
       }
     },
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/121898819?query=vue&hhtmFrom=vacancy_search_list',
       location: {
-        city: 'Moscow',
-        country: 'Russia'
+        city: 'Москва',
+        country: 'Россия'
       },
       salary: {
         max: 300000,
         calcedBeforeTaxes: false,
-        currency: 'rub'
+        currency: 'RUB'
       }
     },
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122595294?query=vue&hhtmFrom=vacancy_search_list',
       location: {
-        country: 'USA'
+        country: 'США'
       },
       salary: {
         max: 4000,
@@ -137,24 +137,24 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122222171?query=vue&hhtmFrom=vacancy_search_list',
       location: {
-        city: 'Saint-Petersburg', country: 'Russia'
+        city: 'Санкт-Петербург', country: 'Россия'
       },
       salary: {
         max: 270000,
         calcedBeforeTaxes: false,
-        currency: 'rub'
+        currency: 'RUB'
       }
     },
     {
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122344165?query=vue&hhtmFrom=vacancy_search_list',
       location: {
-        city: 'Rostov na donu', country: 'Russia'
+        city: 'Ростов-на-Дону', country: 'Россия'
       },
       salary: {
         max: 400000,
         calcedBeforeTaxes: false,
-        currency: 'rub'
+        currency: 'RUB'
       }
     }
   ]

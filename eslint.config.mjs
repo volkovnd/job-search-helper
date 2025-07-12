@@ -104,7 +104,7 @@ export default withNuxt([
 
       '@stylistic/function-call-argument-newline': [
         'error',
-        'always'
+        'consistent'
       ],
       '@stylistic/function-call-spacing': [
         'error',
