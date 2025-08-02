@@ -9,7 +9,8 @@
 
       <q-card-section class="q-my-none">
         <vacancies-table
-          :rows="data"
+          :rows="vacancies"
+          :currencies="currencies"
           :loading="status === 'pending'"
           bordered
           flat
@@ -24,7 +25,16 @@ useSeoMeta({
   title: 'Vacancies'
 })
 
-const { data, status } = await useLazyAsyncData<Vacancy[]>('vacancies', () => $fetch('/api/vacancies'), {
+const { data: vacancies, status } = useLazyAsyncData<Vacancy[]>('vacancies', () => $fetch('/api/vacancies'), {
   default: () => []
+})
+
+const { data: currencies } = useLazyAsyncData<Currency['quotes']>('currencies', () => $fetch('/api/currencies', {
+  query: {
+    source: 'RUB'
+  }
+}), {
+  default: () => ({
+  })
 })
 </script>

@@ -1,7 +1,6 @@
-export default defineEventHandler(async (): Promise<Vacancy[]> => {
+export default defineEventHandler(async () => {
   // Возвращаем список вакансий
-
-  return [
+  const vacancies: Vacancy[] = [
     {
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000155531',
@@ -169,4 +168,6 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
       }
     }
   ]
+
+  return vacancies
 })

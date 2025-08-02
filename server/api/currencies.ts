@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event): Promise<Currency> => {
+export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event)
 
   const { source = 'RUB' } = getQuery<{ source?: string }>(event)
@@ -10,5 +10,5 @@ export default defineEventHandler(async (event): Promise<Currency> => {
     }
   })
 
-  return result
+  return result.quotes
 })

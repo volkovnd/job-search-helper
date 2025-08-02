@@ -47,10 +47,15 @@ import type { QTableColumn, QTableProps } from 'quasar'
 
 type VacanciesTableProps = Omit<QTableProps, 'rows'> & {
   rows: Vacancy[]
+  mainCurrency?: string
+  currencies?: Currency['quotes']
 }
 
-withDefaults(defineProps<VacanciesTableProps>(),
+const props = withDefaults(defineProps<VacanciesTableProps>(),
   {
+    mainCurrency: 'RUB',
+    currencies: () => ({
+    }),
     pagination: () => ({
       rowsPerPage: 0
     }),
@@ -64,7 +69,7 @@ withDefaults(defineProps<VacanciesTableProps>(),
     }
   })
 
-const { getExchangeRate } = useCurrencies()
+const getExchangeRate = (currency: string) => currency === props.mainCurrency ? 1 : props.currencies?.[currency] ?? 1
 
 const prettifyNumber = (num: number) => reverseString(reverseString(num.toString()).replace(/(.{3})/g, '$1 '))
 
