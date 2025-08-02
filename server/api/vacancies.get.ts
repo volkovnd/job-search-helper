@@ -1,5 +1,3 @@
-import type { Vacancy } from '~~/types'
-
 export default defineEventHandler(async (): Promise<Vacancy[]> => {
   // Возвращаем список вакансий
 

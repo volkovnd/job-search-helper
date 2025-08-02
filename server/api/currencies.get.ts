@@ -1,5 +1,3 @@
-import type { Currency } from '~~/types'
-
 export default defineEventHandler(async (event): Promise<Currency> => {
   const config = useRuntimeConfig(event)
 

@@ -1,5 +1,3 @@
-import type { Currency } from '~~/types'
-
 type CurrenciesComposableProps = {
   immidiate?: boolean
 }

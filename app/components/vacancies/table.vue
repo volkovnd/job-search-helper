@@ -37,7 +37,6 @@
 
 <script lang="ts" setup>
 import type { QTableColumn, QTableProps } from 'quasar'
-import type { Salary, Vacancy } from '~~/types'
 
 type VacanciesTableProps = Omit<QTableProps, 'rows'> & {
   rows: Vacancy[]

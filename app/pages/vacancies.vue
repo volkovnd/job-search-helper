@@ -20,8 +20,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { Vacancy } from '~~/types'
-
 definePageMeta({
   alias: '/'
 })
