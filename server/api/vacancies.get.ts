@@ -18,6 +18,19 @@ export default defineEventHandler(async (): Promise<Vacancy[]> => {
     },
     {
       host: 'habr',
+      url: 'https://spb.hh.ru/vacancy/112467359',
+      salary: {
+        min: 300000,
+        currency: 'RUB',
+        calcedBeforeTaxes: true
+      },
+      location: {
+        country: 'Россия',
+        city: 'Москва'
+      }
+    },
+    {
+      host: 'habr',
       url: 'https://career.habr.com/vacancies/1000159400',
       location: {
         country: 'Россия'

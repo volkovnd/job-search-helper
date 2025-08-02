@@ -30,6 +30,13 @@
             RUB
           </div>
         </q-tooltip>
+
+        <q-tooltip v-else-if=" scope.row?.salary?.calcedBeforeTaxes">
+          На руки:
+          <span v-if="scope.row?.salary?.min">от {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.min)) }}</span>
+          <span v-if="scope.row?.salary?.max">до {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.max)) }}</span>
+          RUB
+        </q-tooltip>
       </q-td>
     </template>
   </q-table>
@@ -99,7 +106,7 @@ const columns: QTableColumn<Vacancy>[] = [
         const min = (input.min || 0) * getExchangeRate(input.currency) || (second?.min || 0) * getExchangeRate(second?.currency ?? 'RUB') || 0
 
         // Максимума не может не быть, если есть вообще хоть какая-то информация о ЗП
-        const max = input.max
+        const max = input.max || 0
 
         return (min + max) / 2
       }

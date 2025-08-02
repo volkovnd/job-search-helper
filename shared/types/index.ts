@@ -1,6 +1,6 @@
 export type Salary = {
   min?: number
-  max: number
+  max?: number
   currency: string
   calcedBeforeTaxes?: boolean
 }
