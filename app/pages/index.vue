@@ -10,7 +10,7 @@
       <q-card-section class="q-my-none">
         <vacancies-table
           :rows="data"
-          :loading="pending"
+          :loading="status === 'pending'"
           bordered
           flat
         />
@@ -20,15 +20,11 @@
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-  alias: '/'
-})
-
 useSeoMeta({
   title: 'Vacancies'
 })
 
-const { data, pending } = await useLazyAsyncData('vacancies', () => $fetch<Vacancy[]>('/api/vacancies'), {
+const { data, status } = await useLazyAsyncData<Vacancy[]>('vacancies', () => $fetch('/api/vacancies'), {
   default: () => []
 })
 </script>
