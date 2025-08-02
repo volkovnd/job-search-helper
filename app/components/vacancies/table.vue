@@ -11,7 +11,9 @@
           :href="scope.value"
           no-prefetch
           target="_blank"
-        >{{ scope.value }}</nuxt-link>
+        >
+          {{ scope.value }}
+        </nuxt-link>
       </q-td>
     </template>
 
@@ -20,11 +22,11 @@
         {{ scope.value }}
 
         <q-tooltip v-if="scope.row?.salary?.currency !== 'RUB'">
-          <div style="font-size: 14px">
-            По курсу {{ currenciesStore.getCurrencyExchangeRate(scope.row?.salary?.currency).toFixed(2) }} руб за 1 {{ scope.row?.salary?.currency }}:<br>
-            <span v-if="scope.row?.salary?.min">{{ prettifyNumber(Math.round(scope.row.salary.min * currenciesStore.getCurrencyExchangeRate(scope.row?.salary?.currency))) }}</span>
+          <div>
+            По курсу {{ getExchangeRate(scope.row?.salary?.currency).toFixed(2) }} руб за 1 {{ scope.row?.salary?.currency }}:<br>
+            <span v-if="scope.row?.salary?.min">{{ prettifyNumber(Math.round(scope.row.salary.min * getExchangeRate(scope.row?.salary?.currency))) }}</span>
             -
-            <span v-if="scope.row?.salary?.max">{{ prettifyNumber(Math.round(scope.row.salary.max * currenciesStore.getCurrencyExchangeRate(scope.row?.salary?.currency))) }}</span>
+            <span v-if="scope.row?.salary?.max">{{ prettifyNumber(Math.round(scope.row.salary.max * getExchangeRate(scope.row?.salary?.currency))) }}</span>
             RUB
           </div>
         </q-tooltip>
@@ -35,7 +37,7 @@
 
 <script lang="ts" setup>
 import type { QTableColumn, QTableProps } from 'quasar'
-import type { Salary, Vacancy } from '~/types'
+import type { Salary, Vacancy } from '~~/types'
 
 type VacanciesTableProps = Omit<QTableProps, 'rows'> & {
   rows: Vacancy[]
@@ -55,10 +57,8 @@ withDefaults(defineProps<VacanciesTableProps>(),
       return ''
     }
   })
-const currenciesStore = useCurrenciesStore()
 
-const reverseString = (input: string) => input.split('').reverse()
-  .join('')
+const { getExchangeRate } = useCurrencies()
 
 const prettifyNumber = (num: number) => reverseString(reverseString(num.toString()).replace(/(.{3})/g, '$1 '))
 
@@ -97,7 +97,7 @@ const columns: QTableColumn<Vacancy>[] = [
       const getAverageValue = (input?: Salary, second?: Salary) => {
         if (!input) return 0
 
-        const min = (input.min || 0) * currenciesStore.getCurrencyExchangeRate(input.currency) || (second?.min || 0) * currenciesStore.getCurrencyExchangeRate(second?.currency) || 0
+        const min = (input.min || 0) * getExchangeRate(input.currency) || (second?.min || 0) * getExchangeRate(second?.currency ?? 'RUB') || 0
 
         // Максимума не может не быть, если есть вообще хоть какая-то информация о ЗП
         const max = input.max

@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxtjs/stylelint-module',
     'nuxt-quasar-ui',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@nuxt/test-utils/module'
   ],
   devtools: {
     enabled: true, telemetry: false
@@ -80,7 +81,7 @@ export default defineNuxtConfig({
       font: null
     },
     cssAddon: true,
-    sassVariables: 'assets/scss/variables.scss',
+    sassVariables: 'assets/scss/_variables.scss',
     components: {
       defaults: {
         QBtn: {
@@ -116,10 +117,6 @@ export default defineNuxtConfig({
 
   stylelint: {
     cache: false,
-    extensions: [
-      'css',
-      'vue',
-      'scss'
-    ]
+    lintOnStart: false
   }
 })

@@ -20,6 +20,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { Vacancy } from '~~/types'
+
 definePageMeta({
   alias: '/'
 })
@@ -28,11 +30,7 @@ useSeoMeta({
   title: 'Vacancies'
 })
 
-const { data, pending } = await useLazyFetch(
-  '/api/vacancies',
-  {
-    key: 'vacancies',
-    default: () => []
-  }
-)
+const { data, pending } = await useLazyAsyncData('vacancies', () => $fetch<Vacancy[]>('/api/vacancies'), {
+  default: () => []
+})
 </script>
