@@ -3,12 +3,18 @@ export default defineEventHandler(async (event) => {
 
   const { source = 'RUB' } = getQuery<{ source?: string }>(event)
 
-  const result = await event.$fetch<Currency>('https://api.exchangerate.host/live', {
-    query: {
-      access_key: config.exchangeRateAccessKey,
-      source
-    }
-  })
+  try {
+    const result = await event.$fetch<Currency>('https://api.exchangerate.host/live', {
+      query: {
+        access_key: config.exchangeRateAccessKey,
+        source
+      }
+    })
 
-  return result.quotes
+    return result.quotes
+  } catch {
+    return {
+      [source]: 1
+    }
+  }
 })
