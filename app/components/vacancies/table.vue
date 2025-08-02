@@ -69,7 +69,7 @@ import type { QTableColumn, QTableProps } from 'quasar'
 type VacanciesTableProps = Omit<QTableProps, 'rows'> & {
   rows: Vacancy[]
   mainCurrency?: string
-  currencies?: Currency['quotes']
+  currencies?: ExchangeRates
 }
 
 const props = withDefaults(defineProps<VacanciesTableProps>(),

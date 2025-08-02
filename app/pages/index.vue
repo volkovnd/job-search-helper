@@ -25,16 +25,17 @@ useSeoMeta({
   title: 'Vacancies'
 })
 
-const { data: vacancies, status } = useLazyAsyncData<Vacancy[]>('vacancies', () => $fetch('/api/vacancies'), {
+const { data: vacancies, status } = await useLazyAsyncData<Vacancy[]>('vacancies', () => $fetch('/api/vacancies'), {
   default: () => []
 })
 
-const { data: currencies } = useLazyAsyncData<Currency['quotes']>('currencies', () => $fetch('/api/currencies', {
+const { data: currencies } = await useLazyAsyncData('currencies-exchange-rates', () => $fetch('/api/currencies/exchange-rates', {
   query: {
     source: 'RUB'
   }
 }), {
   default: () => ({
+    RUB: 1
   })
 })
 </script>

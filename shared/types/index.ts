@@ -17,11 +17,4 @@ export type Vacancy = {
   location?: Location
 }
 
-export type Currency = {
-  success: boolean
-  terms: string
-  privacy: string
-  timestamp: number
-  source: string
-  quotes: Record<string, number>
-}
+export type ExchangeRates = Record<string, number>
