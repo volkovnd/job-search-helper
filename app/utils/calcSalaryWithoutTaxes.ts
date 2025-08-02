@@ -23,7 +23,7 @@ const MIN_SALARY_FOR_TAXES = new Map([
 ])
 
 // Расчет ЗП на руки после вычета налогов
-export const calcSalaryWithoutTaxis = (salary: number) => {
+export const calcSalaryWithoutTaxes = (salary: number) => {
   // Поскольку НДФл прогрессивный налог, то считаем части ЗП, которые облагаются повышенным НДФЛ
 
   // Считаем итоговую ЗП за год

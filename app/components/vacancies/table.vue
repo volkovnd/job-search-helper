@@ -52,8 +52,8 @@
             class="cursor-pointer"
           />
           <q-tooltip>На руки ~~
-            <span v-if="scope.row?.salary?.min">от {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.min)) }}</span>
-            <span v-if="scope.row?.salary?.max">до {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.max)) }}</span>
+            <span v-if="scope.row?.salary?.min">от {{ prettifyNumber(calcSalaryWithoutTaxes(scope.row.salary.min)) }}</span>
+            <span v-if="scope.row?.salary?.max">до {{ prettifyNumber(calcSalaryWithoutTaxes(scope.row.salary.max)) }}</span>
             RUB</q-tooltip>
         </span>
 
