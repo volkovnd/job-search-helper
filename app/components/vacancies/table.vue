@@ -19,24 +19,45 @@
 
     <template #body-cell-salary="scope">
       <q-td :props="scope">
+        <span v-if="!!scope.row?.salary?.currency && scope.row.salary.currency !== 'RUB'">
+          <span v-if="!!currencies[scope.row.salary.currency]">
+            <q-icon
+              name="help"
+              color="primary"
+              class="cursor-pointer"
+            />
+
+            <q-tooltip>
+              По курсу {{ getExchangeRate(scope.row?.salary?.currency).toFixed(2) }} руб за 1 {{ scope.row?.salary?.currency }}:<br>
+              <span v-if="scope.row?.salary?.min">{{ prettifyNumber(Math.round(scope.row.salary.min * getExchangeRate(scope.row?.salary?.currency))) }}</span>
+              -
+              <span v-if="scope.row?.salary?.max">{{ prettifyNumber(Math.round(scope.row.salary.max * getExchangeRate(scope.row?.salary?.currency))) }}</span>
+              RUB
+            </q-tooltip>
+          </span>
+          <span v-else>
+            <q-icon
+              name="warning"
+              color="negative"
+              class="cursor-pointer"
+            />
+            <q-tooltip>Не удалось получить курс данной валюты к рублю</q-tooltip>
+          </span>
+        </span>
+
+        <span v-else-if="!!scope.row?.salary?.calcedBeforeTaxes">
+          <q-icon
+            name="help"
+            color="primary"
+            class="cursor-pointer"
+          />
+          <q-tooltip>На руки ~~
+            <span v-if="scope.row?.salary?.min">от {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.min)) }}</span>
+            <span v-if="scope.row?.salary?.max">до {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.max)) }}</span>
+            RUB</q-tooltip>
+        </span>
+
         {{ scope.value }}
-
-        <q-tooltip v-if="scope.row?.salary?.currency !== 'RUB'">
-          <div>
-            По курсу {{ getExchangeRate(scope.row?.salary?.currency).toFixed(2) }} руб за 1 {{ scope.row?.salary?.currency }}:<br>
-            <span v-if="scope.row?.salary?.min">{{ prettifyNumber(Math.round(scope.row.salary.min * getExchangeRate(scope.row?.salary?.currency))) }}</span>
-            -
-            <span v-if="scope.row?.salary?.max">{{ prettifyNumber(Math.round(scope.row.salary.max * getExchangeRate(scope.row?.salary?.currency))) }}</span>
-            RUB
-          </div>
-        </q-tooltip>
-
-        <q-tooltip v-else-if=" scope.row?.salary?.calcedBeforeTaxes">
-          На руки:
-          <span v-if="scope.row?.salary?.min">от {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.min)) }}</span>
-          <span v-if="scope.row?.salary?.max">до {{ prettifyNumber(calcSalaryWithoutTaxis(scope.row.salary.max)) }}</span>
-          RUB
-        </q-tooltip>
       </q-td>
     </template>
   </q-table>
