@@ -92,8 +92,6 @@ const props = withDefaults(defineProps<VacanciesTableProps>(),
 
 const getExchangeRate = (currency: string) => currency === props.mainCurrency ? 1 : props.currencies?.[currency] ?? 1
 
-const prettifyNumber = (num: number) => reverseString(reverseString(num.toString()).replace(/(.{3})/g, '$1 '))
-
 const columns: QTableColumn<Vacancy>[] = [
   {
     field: 'host',
