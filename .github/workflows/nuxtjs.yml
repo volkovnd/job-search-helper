@@ -18,7 +18,7 @@ jobs:
       - run: npm install
       - name: Build static HTML
         env:
-          NUXT_APP_BASE_URL: '/search-helper/'
+          NUXT_APP_BASE_URL: '/job-search-helper/'
         run: npx nuxt build --preset github_pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

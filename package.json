@@ -7,6 +7,7 @@
   "keywords": [],
   "private": true,
   "type": "module",
+  "homepage": "https://volkovnd.github.io/job-search-helper/",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
