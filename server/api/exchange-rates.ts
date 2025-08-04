@@ -5,8 +5,9 @@ export default defineEventHandler(async (event) => {
     source?: string
   }>(event)
 
-  if (!config.exchangeRateAccessKey || import.meta.dev) {
-    return (await import('~~/mocks/exchanger-rates')).default
+  // На случай, если не указан ключ к API
+  if (!config.exchangeRateAccessKey) {
+    return (await import('./__mocks__/exchange-rates')).default
   }
 
   return await $fetch<{
