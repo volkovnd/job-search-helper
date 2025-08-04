@@ -34,7 +34,12 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    exchangeRateAccessKey: ''
+    // Ключ для сервиса получения курса валют. Не обязательно!
+    exchangeRateAccessKey: '',
+    public: {
+      // Валюта по умолчанию
+      source: 'RUB'
+    }
   },
   compatibilityDate: '2025-05-15',
   telemetry: {

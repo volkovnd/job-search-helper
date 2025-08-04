@@ -19,7 +19,7 @@
 
     <template #body-cell-salary="scope">
       <q-td :props="scope">
-        <span v-if="!!scope.row?.salary?.currency && scope.row.salary.currency !== 'RUB'">
+        <span v-if="!!scope.row?.salary?.currency && scope.row.salary.currency !== $config.public.source">
           <span v-if="!!currencies[scope.row.salary.currency]">
             <q-icon
               name="help"
@@ -28,7 +28,7 @@
             />
 
             <q-tooltip>
-              По курсу {{ getExchangeRate(scope.row?.salary?.currency).toFixed(2) }} руб за 1 {{ scope.row?.salary?.currency }}:<br>
+              По курсу {{ getExchangeRate(scope.row?.salary?.currency).toFixed(2) }} {{ $config.public.source }} за 1 {{ scope.row?.salary?.currency }}:<br>
               <span v-if="scope.row?.salary?.min">{{ prettifyNumber(Math.round(scope.row.salary.min * getExchangeRate(scope.row?.salary?.currency))) }}</span>
               -
               <span v-if="scope.row?.salary?.max">{{ prettifyNumber(Math.round(scope.row.salary.max * getExchangeRate(scope.row?.salary?.currency))) }}</span>
@@ -41,7 +41,7 @@
               color="negative"
               class="cursor-pointer"
             />
-            <q-tooltip>Не удалось получить курс данной валюты к рублю</q-tooltip>
+            <q-tooltip>Не удалось получить курс данной валюты к {{ $config.public.source }}</q-tooltip>
           </span>
         </span>
 
@@ -90,7 +90,7 @@ const props = withDefaults(defineProps<VacanciesTableProps>(),
     }
   })
 
-const getExchangeRate = (currency: string) => currency === props.mainCurrency ? 1 : props.currencies?.[currency] ?? 1
+const getExchangeRate = (currency: string) => currency === props.mainCurrency ? 1 : 1 / (props.currencies?.[currency] ?? 1)
 
 const columns: QTableColumn<Vacancy>[] = [
   {

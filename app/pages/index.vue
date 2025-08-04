@@ -10,7 +10,7 @@
       <q-card-section class="q-my-none">
         <vacancies-table
           :rows="vacancies"
-          :currencies="currencies"
+          :currencies="exchangeRates"
           :loading="status === 'pending'"
           bordered
           flat
@@ -25,17 +25,23 @@ useSeoMeta({
   title: 'Vacancies'
 })
 
+const config = useRuntimeConfig()
+
 const { data: vacancies, status } = await useLazyAsyncData<Vacancy[]>('vacancies', () => $fetch('/api/vacancies'), {
-  default: () => []
+  default() {
+    return []
+  }
 })
 
-const { data: currencies } = await useLazyAsyncData('currencies-exchange-rates', () => $fetch('/api/currencies/exchange-rates', {
+const { data: exchangeRates } = await useLazyAsyncData('exchange-rates', () => $fetch('/api/exchange-rates', {
   query: {
-    source: 'RUB'
+    source: config.public.source
   }
 }), {
-  default: () => ({
-    RUB: 1
-  })
+  default() {
+    return {
+      [config.public.source]: 1
+    }
+  }
 })
 </script>
