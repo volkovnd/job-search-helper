@@ -4,19 +4,6 @@
     :columns="columns"
     :sort-method="sortMethod"
   >
-    <template #body-cell-url="scope">
-      <q-td :props="scope">
-        <nuxt-link
-          external
-          :href="scope.value"
-          no-prefetch
-          target="_blank"
-        >
-          {{ scope.value }}
-        </nuxt-link>
-      </q-td>
-    </template>
-
     <template #body-cell-salary="scope">
       <q-td :props="scope">
         <span v-if="!!scope.row?.salary?.currency && scope.row.salary.currency !== $config.public.source">
@@ -58,6 +45,19 @@
         </span>
 
         {{ scope.value }}
+      </q-td>
+    </template>
+
+    <template #body-cell-url="scope">
+      <q-td :props="scope">
+        <nuxt-link
+          external
+          :href="scope.value"
+          no-prefetch
+          target="_blank"
+        >
+          {{ scope.value }}
+        </nuxt-link>
       </q-td>
     </template>
   </q-table>
