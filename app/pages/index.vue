@@ -10,10 +10,10 @@
       <q-card-section class="q-my-none">
         <vacancies-table
           :rows="vacancies"
-          :currencies="exchangeRates"
           :loading="status === 'pending'"
           bordered
           flat
+          square
         />
       </q-card-section>
     </q-card>
@@ -25,23 +25,9 @@ useSeoMeta({
   title: 'Vacancies'
 })
 
-const config = useRuntimeConfig()
-
 const { data: vacancies, status } = await useLazyAsyncData<Vacancy[]>('vacancies', () => $fetch('/api/vacancies'), {
   default() {
     return []
-  }
-})
-
-const { data: exchangeRates } = await useLazyAsyncData('exchange-rates', () => $fetch('/api/exchange-rates', {
-  query: {
-    source: config.public.source
-  }
-}), {
-  default() {
-    return {
-      [config.public.source]: 1
-    }
   }
 })
 </script>

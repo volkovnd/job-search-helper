@@ -38,7 +38,7 @@ export default defineNuxtConfig({
     exchangeRateAccessKey: '',
     public: {
       // Валюта по умолчанию
-      source: 'RUB'
+      mainCurrency: 'RUB'
     }
   },
   compatibilityDate: '2025-05-15',
@@ -105,8 +105,7 @@ export default defineNuxtConfig({
           padding: true
         },
         QTable: {
-          loadingLabel: 'Загрузка...',
-          tableHeaderClass: 'bg-grey-3'
+          loadingLabel: 'Загрузка...'
         },
         QInnerLoading: {
           label: 'Загрузка...'
