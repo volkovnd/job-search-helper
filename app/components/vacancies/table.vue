@@ -1,19 +1,26 @@
 <template>
   <q-table
-    v-bind="$props"
+    :title="title"
+    bordered
+    flat
+    square
     :rows="rows"
     table-header-class="bg-grey-3"
-    hide-pagination
+    :table-style="{
+      height: height+'px'
+    }"
     :pagination="{
       rowsPerPage: 0
     }"
-    virtual-scroll
+    hide-pagination
     :columns="columns"
-    :sort-method="sortMethod"
+    virtual-scroll
+    :table-row-class-fn="rowClassFn"
   >
     <template #loading>
       <q-inner-loading
         label="Загрузка..."
+        showing
       />
     </template>
 
@@ -35,19 +42,18 @@
 <script lang="ts" setup>
 import type { QTableColumn, QTableProps } from 'quasar'
 
-type VacanciesTableProps = Omit<QTableProps, 'rows'> & {
+withDefaults(defineProps<{
+  title?: string
   rows: Vacancy[]
-}
-
-defineProps<VacanciesTableProps>()
+  height?: number
+}>(), {
+  height: 400,
+  title: undefined
+})
 
 const config = useRuntimeConfig()
 
-// Временно сюда переносим логику получения курса валют...
-const { data: exchangeRates } = await useLazyAsyncData('exchange-rates', () => $fetch('/api/exchange-rates'), {
-  default: (): ExchangeRates => ({
-  })
-})
+const { convertCurrencyToSource } = await useExchangeRates(config.public.mainCurrency)
 
 const columns: QTableColumn<Vacancy>[] = [
   {
@@ -102,26 +108,21 @@ const columns: QTableColumn<Vacancy>[] = [
   // Итоговое значение ЗП после конвертации в РУБ и вычета налогов, если они не были вычтены в предложении
   {
     field(row: Vacancy) {
-      if (!row.salary) {
-        return row.salary
+      if (!row.salary || (!row.salary?.min && !row.salary?.max)) {
+        return 'Не указана'
       }
 
       const salary = clone(row.salary)
 
       // Если валюта ЗП отличается от основной
       if (salary.currency !== config.public.mainCurrency) {
-        // И нам неизвестен ее курс...
-        if (!exchangeRates.value[salary.currency]) {
-          return 'Неизвестный курс для перевода в ' + config.public.mainCurrency
-        }
-
         // В противном случае конвертируем в рубли
         if (salary?.min) {
-          salary.min = Math.round(salary.min / exchangeRates.value[salary.currency]!)
+          salary.min = convertCurrencyToSource(salary.min, salary.currency)
         }
 
         if (salary?.max) {
-          salary.max = Math.round(salary.max / exchangeRates.value[salary.currency]!)
+          salary.max = convertCurrencyToSource(salary.max, salary.currency)
         }
       } else if (salary.calcedBeforeTaxes) {
         // Если валюта совпадает, но ЗП указано до вычета налогов, то считаем сколько чистыми на руки
@@ -155,4 +156,18 @@ const columns: QTableColumn<Vacancy>[] = [
     align: 'left'
   }
 ]
+
+const rowClassFn: NonNullable<QTableProps['tableRowClassFn']> = (row: Vacancy) => {
+  if (row.location?.city === config.public.mainCity) {
+    return 'vacancy-in-main-city'
+  }
+
+  return ''
+}
 </script>
+
+<style lang="scss">
+.vacancy-in-main-city {
+  background-color: rgba($primary, 0.05);
+}
+</style>

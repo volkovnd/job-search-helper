@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module'
   ],
   devtools: {
-    enabled: true, telemetry: false
+    enabled: true,
+    telemetry: false
   },
   app: {
     head: {
@@ -38,7 +39,9 @@ export default defineNuxtConfig({
     exchangeRateAccessKey: '',
     public: {
       // Валюта по умолчанию
-      mainCurrency: 'RUB'
+      mainCurrency: 'RUB',
+      // Город по умолчанию
+      mainCity: 'Санкт-Петербург'
     }
   },
   compatibilityDate: '2025-05-15',
