@@ -36,13 +36,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     // Ключ для сервиса получения курса валют. Не обязательно!
-    exchangeRateAccessKey: '',
-    public: {
-      // Валюта по умолчанию
-      mainCurrency: 'RUB',
-      // Город по умолчанию
-      mainCity: 'Санкт-Петербург'
-    }
+    exchangeRateAccessKey: ''
+  },
+  future: {
+    compatibilityVersion: 4
   },
   compatibilityDate: '2025-05-15',
   telemetry: {

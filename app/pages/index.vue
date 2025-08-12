@@ -1,17 +1,11 @@
 <template>
   <q-page :style-fn="styleFn">
-    <q-card>
-      <q-card-section class="q-my-none q-pa-none">
-        <client-only>
-          <vacancies-table
-            title="Вакансии"
-            :rows="vacancies"
-            :loading="pending"
-            :height="pageHeight - 54"
-          />
-        </client-only>
-      </q-card-section>
-    </q-card>
+    <vacancies-table
+      title="Вакансии"
+      :rows="vacancies"
+      :loading="pending"
+      :height="pageHeight - 54"
+    />
   </q-page>
 </template>
 
@@ -33,6 +27,15 @@ const { data: vacancies, pending } = await useLazyFetch<Vacancy[]>('/api/vacanci
 const pageHeight = ref(0)
 
 const styleFn: QPageProps['styleFn'] = (offset, height) => {
+  // "offset" is a Number (pixels) that refers to the total
+  // height of header + footer that occupies on screen,
+  // based on the QLayout "view" prop configuration
+
+  // this is actually what the default style-fn does in Quasar
   pageHeight.value = height - offset
+
+  return {
+    minHeight: `${height - offset}px`
+  }
 }
 </script>

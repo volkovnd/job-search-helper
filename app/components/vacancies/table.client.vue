@@ -5,7 +5,6 @@
     :title="title"
     wrap-cells
     bordered
-    flat
     square
     :rows="rows"
     :style="{
@@ -45,7 +44,6 @@
         dense
         outlined
         square
-        stack-label
       />
     </template>
 
@@ -72,18 +70,20 @@ type Filter = {
   showNotSpecified: boolean
 }
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   title?: string
   rows: Vacancy[]
   height?: number
+  baseCurrency?: string
+  baseCity?: string
 }>(), {
   height: 400,
-  title: undefined
+  title: undefined,
+  baseCurrency: 'RUB',
+  baseCity: 'Санкт-Петербург'
 })
 
-const config = useRuntimeConfig()
-
-const { convertCurrencyToSource } = await useExchangeRates(config.public.mainCurrency)
+const { convertCurrencyToSource } = await useExchangeRates(props.baseCurrency)
 
 const filter: Filter = reactive({
   min: null,
@@ -151,7 +151,7 @@ const columns: QTableColumn<Vacancy>[] = [
 
       let result = `${val?.min ? 'от ' + val.min.toLocaleString() + ' ' : ''}${val?.max ? 'до ' + val.max.toLocaleString() : ''} ${val.currency}`
 
-      if (val.currency === config.public.mainCurrency) {
+      if (val.currency === props.baseCurrency) {
         result += `${val.calcedBeforeTaxes ? ' до вычета налогов' : ' на руки'}`
       }
 
@@ -181,7 +181,7 @@ const columns: QTableColumn<Vacancy>[] = [
       }
 
       // Если валюта ЗП отличается от основной
-      if (salary.currency !== config.public.mainCurrency) {
+      if (salary.currency !== props.baseCurrency) {
         // В противном случае конвертируем в рубли
         salary = applyToSalary(salary, (v: number) => convertCurrencyToSource(v, salary.currency))
       } else if (salary.calcedBeforeTaxes) {
@@ -198,7 +198,7 @@ const columns: QTableColumn<Vacancy>[] = [
         return 'Не указана'
       }
 
-      return `${val?.min ? 'от ' + val.min.toLocaleString() + ' ' : ''}${val?.max ? 'до ' + val.max.toLocaleString() : ''} ${config.public.mainCurrency}`
+      return `${val?.min ? 'от ' + val.min.toLocaleString() + ' ' : ''}${val?.max ? 'до ' + val.max.toLocaleString() : ''} ${props.baseCurrency}`
     }
   },
 
@@ -211,7 +211,7 @@ const columns: QTableColumn<Vacancy>[] = [
 ]
 
 const rowClassFn: NonNullable<QTableProps['tableRowClassFn']> = (row: Vacancy) => {
-  if (row.location?.city === config.public.mainCity) {
+  if (row.location?.city === props.baseCity) {
     return 'vacancy-in-main-city'
   }
 
