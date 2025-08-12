@@ -4,11 +4,12 @@
     hide-pagination
     :title="title"
     wrap-cells
-    bordered
+    flat
     square
     :rows="rows"
     :style="{
-      height: height+'px'
+      maxHeight: '100%',
+      minHeight: `${height}px`
     }"
     :columns="columns"
     table-header-class="bg-grey-3 table-header-sticky"
@@ -87,7 +88,7 @@ const props = withDefaults(defineProps<{
   baseCurrency?: string
   baseCity?: string
 }>(), {
-  height: 400,
+  height: 300,
   title: undefined,
   baseCurrency: 'RUB',
   baseCity: 'Санкт-Петербург'

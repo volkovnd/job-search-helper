@@ -1,11 +1,14 @@
 <template>
   <q-page :style-fn="styleFn">
-    <vacancies-table
-      title="Вакансии"
-      :rows="vacancies"
-      :loading="pending"
-      :height="pageHeight - 54"
-    />
+    <q-card class="full-height scroll">
+      <q-card-section class="q-pa-none">
+        <vacancies-table
+          title="Вакансии"
+          :rows="vacancies"
+          :loading="pending"
+        />
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
@@ -35,7 +38,7 @@ const styleFn: QPageProps['styleFn'] = (offset, height) => {
   pageHeight.value = height - offset
 
   return {
-    minHeight: `${height - offset}px`
+    height: `${height - offset}px`
   }
 }
 </script>
