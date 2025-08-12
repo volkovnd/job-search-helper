@@ -171,7 +171,7 @@ export const useExchangeRates = async (source: string) => {
   })
 
   const convertCurrencyToSource = (count: number, currency: string) => {
-    return Math.round(count / (exchangeRates.value[currency] ?? 1))
+    return (count / (exchangeRates.value[currency] ?? 1))
   }
 
   return {

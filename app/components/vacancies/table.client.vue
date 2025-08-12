@@ -47,6 +47,16 @@
       />
     </template>
 
+    <template #body-cell-salary="scope">
+      <q-td :props="scope">
+        {{ scope.value }}
+
+        <q-tooltip v-if="scope.row?.salary && scope.row.salary.currency !== baseCurrency">
+          По курсу 1 {{ scope.row.salary.currency }} равен {{ convertCurrencyToSource(1, scope.row.salary.currency).toFixed(2) }} {{ baseCurrency }}
+        </q-tooltip>
+      </q-td>
+    </template>
+
     <template #body-cell-url="scope">
       <q-td :props="scope">
         <nuxt-link
@@ -183,7 +193,7 @@ const columns: QTableColumn<Vacancy>[] = [
       // Если валюта ЗП отличается от основной
       if (salary.currency !== props.baseCurrency) {
         // В противном случае конвертируем в рубли
-        salary = applyToSalary(salary, (v: number) => convertCurrencyToSource(v, salary.currency))
+        salary = applyToSalary(salary, (v: number) => Math.round(convertCurrencyToSource(v, salary.currency)))
       } else if (salary.calcedBeforeTaxes) {
         salary = applyToSalary(salary, calcSalaryWithoutTaxes)
       }
