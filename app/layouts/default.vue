@@ -20,7 +20,7 @@
         >
           <q-route-tab
             :to="{ name: 'vacancies' }"
-            label="Vacancies"
+            label="Вакансии"
           />
         </q-tabs>
       </q-toolbar>

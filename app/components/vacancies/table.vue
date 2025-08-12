@@ -1,26 +1,51 @@
 <template>
   <q-table
+    v-model:pagination="pagination"
+    hide-pagination
     :title="title"
+    wrap-cells
     bordered
     flat
     square
     :rows="rows"
-    table-header-class="bg-grey-3"
-    :table-style="{
+    :style="{
       height: height+'px'
     }"
-    :pagination="{
-      rowsPerPage: 0
-    }"
-    hide-pagination
     :columns="columns"
-    virtual-scroll
+    table-header-class="bg-grey-3 table-header-sticky"
+    separator="cell"
     :table-row-class-fn="rowClassFn"
+    :filter="filter"
+    :filter-method="filterMethod"
+    title-class="text-h4"
+    virtual-scroll
   >
     <template #loading>
       <q-inner-loading
         label="Загрузка..."
         showing
+      />
+    </template>
+
+    <template #top-right>
+      <q-checkbox
+        v-model="filter.showNotSpecified"
+        label="Показывать объявления, где не указана ЗП"
+        class="text-body2 q-mx-lg"
+        size="sm"
+      />
+
+      <q-input
+        v-model.number="filter.min"
+        type="number"
+        class="q-mx-lg"
+        min="0"
+        step="1"
+        label="Минимальная ЗП"
+        dense
+        outlined
+        square
+        stack-label
       />
     </template>
 
@@ -42,6 +67,11 @@
 <script lang="ts" setup>
 import type { QTableColumn, QTableProps } from 'quasar'
 
+type Filter = {
+  min?: number | null
+  showNotSpecified: boolean
+}
+
 withDefaults(defineProps<{
   title?: string
   rows: Vacancy[]
@@ -54,6 +84,30 @@ withDefaults(defineProps<{
 const config = useRuntimeConfig()
 
 const { convertCurrencyToSource } = await useExchangeRates(config.public.mainCurrency)
+
+const filter: Filter = reactive({
+  min: null,
+  showNotSpecified: true
+})
+
+// Метод для фильтрации
+const filterMethod: NonNullable<QTableProps['filterMethod']> = (rows: readonly Vacancy[], terms: Filter) => {
+  return rows.filter((row) => {
+    if (!terms.showNotSpecified && !row.salary) {
+      return false
+    }
+
+    if (typeof terms.min === 'number' && typeof row?.salary?.max === 'number' && row.salary.max < terms.min) {
+      return false
+    }
+
+    return true
+  })
+}
+
+const pagination = ref<NonNullable<QTableProps['pagination']>>({
+  rowsPerPage: 0
+})
 
 const columns: QTableColumn<Vacancy>[] = [
   {
@@ -109,30 +163,29 @@ const columns: QTableColumn<Vacancy>[] = [
   {
     field(row: Vacancy) {
       if (!row.salary || (!row.salary?.min && !row.salary?.max)) {
-        return 'Не указана'
+        return row.salary
       }
 
-      const salary = clone(row.salary)
+      let salary = clone(row.salary)
+
+      const applyToSalary = (salary: Salary, cb: (value: number) => number) => {
+        if (salary.min) {
+          salary.min = cb(salary.min)
+        }
+
+        if (salary.max) {
+          salary.max = cb(salary.max)
+        }
+
+        return salary
+      }
 
       // Если валюта ЗП отличается от основной
       if (salary.currency !== config.public.mainCurrency) {
         // В противном случае конвертируем в рубли
-        if (salary?.min) {
-          salary.min = convertCurrencyToSource(salary.min, salary.currency)
-        }
-
-        if (salary?.max) {
-          salary.max = convertCurrencyToSource(salary.max, salary.currency)
-        }
+        salary = applyToSalary(salary, (v: number) => convertCurrencyToSource(v, salary.currency))
       } else if (salary.calcedBeforeTaxes) {
-        // Если валюта совпадает, но ЗП указано до вычета налогов, то считаем сколько чистыми на руки
-        if (salary?.max) {
-          salary.max = calcSalaryWithoutTaxes(salary.max)
-        }
-
-        if (salary?.min) {
-          salary.min = calcSalaryWithoutTaxes(salary.min)
-        }
+        salary = applyToSalary(salary, calcSalaryWithoutTaxes)
       }
 
       return salary
@@ -169,5 +222,11 @@ const rowClassFn: NonNullable<QTableProps['tableRowClassFn']> = (row: Vacancy) =
 <style lang="scss">
 .vacancy-in-main-city {
   background-color: rgba($primary, 0.05);
+}
+
+.table-header-sticky{
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 </style>

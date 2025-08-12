@@ -4,10 +4,10 @@
       <q-card-section class="q-my-none q-pa-none">
         <client-only>
           <vacancies-table
-            title="Vacancies"
+            title="Вакансии"
             :rows="vacancies"
             :loading="pending"
-            :height="pageHeight - 112"
+            :height="pageHeight - 54"
           />
         </client-only>
       </q-card-section>
@@ -23,7 +23,7 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: 'Vacancies'
+  title: 'Вакансии'
 })
 
 const { data: vacancies, pending } = await useLazyFetch<Vacancy[]>('/api/vacancies', {
