@@ -95,7 +95,7 @@ const props = withDefaults(defineProps<{
   baseCity: 'Санкт-Петербург'
 })
 
-const { convertCurrencyToSource } = useExchangeRates(props.baseCurrency)
+const { convertCurrencyToSource } = await useExchangeRates(props.baseCurrency)
 
 const filter: Filter = reactive({
   min: null,
