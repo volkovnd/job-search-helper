@@ -8,10 +8,8 @@
       "request": "launch",
       "name": "client: chrome",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}",
-      "includeDefaultArgs": true,
-      "disableNetworkCache": true,
-      "outputCapture": "std"
+      // this should point to your Nuxt `srcDir`, which is `app` by default
+      "webRoot": "${workspaceFolder}/app"
     },
     {
       "type": "node",
