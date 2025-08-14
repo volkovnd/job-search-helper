@@ -6,6 +6,7 @@
           title="Вакансии"
           :rows="vacancies"
           :loading="pending"
+          :height="pageHeight"
         />
       </q-card-section>
     </q-card>
@@ -24,7 +25,8 @@ useSeoMeta({
 })
 
 const { data: vacancies, pending } = await useLazyFetch<Vacancy[]>('/api/vacancies', {
-  default: () => []
+  default: () => [],
+  key: 'vacancies'
 })
 
 const pageHeight = ref(0)

@@ -7,9 +7,8 @@
     flat
     square
     :rows="rows"
-    :style="{
-      maxHeight: '100%',
-      minHeight: `${height}px`
+    :table-style="{
+      height: `${height - 128}px`
     }"
     :columns="columns"
     table-header-class="bg-grey-3 table-header-sticky"
@@ -19,6 +18,7 @@
     :filter-method="filterMethod"
     title-class="text-h4"
     virtual-scroll
+    :loading="loading"
   >
     <template #loading>
       <q-inner-loading
@@ -87,6 +87,7 @@ const props = withDefaults(defineProps<{
   height?: number
   baseCurrency?: string
   baseCity?: string
+  loading?: boolean
 }>(), {
   height: 300,
   title: undefined,
@@ -94,7 +95,7 @@ const props = withDefaults(defineProps<{
   baseCity: 'Санкт-Петербург'
 })
 
-const { convertCurrencyToSource } = await useExchangeRates(props.baseCurrency)
+const { convertCurrencyToSource } = useExchangeRates(props.baseCurrency)
 
 const filter: Filter = reactive({
   min: null,

@@ -1,4 +1,10 @@
 export default defineEventHandler(async () => {
+  const sleep = (ms: number) => new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+
+  await sleep(4500)
+
   // Возвращаем список вакансий
   const vacancies: Vacancy[] = [
     {
