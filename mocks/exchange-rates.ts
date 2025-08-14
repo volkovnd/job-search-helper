@@ -1,5 +1,4 @@
 // Мок курсов валют на 04.08.25
-
 import type { ExchangeRates } from '~~/shared/types'
 
 export default {
