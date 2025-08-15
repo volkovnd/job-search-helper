@@ -70,7 +70,6 @@ export default defineNuxtConfig({
     lang: 'ru',
     extras: {
       font: null
-
     },
     cssAddon: true,
     sassVariables: 'assets/scss/_variables.scss',
@@ -97,11 +96,6 @@ export default defineNuxtConfig({
         QInnerLoading: {
           label: 'Загрузка...'
         }
-      }
-    },
-    config: {
-      brand: {
-        primary: '#066a45'
       }
     }
   },
