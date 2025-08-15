@@ -11,7 +11,7 @@
     square
     :rows="rows"
     :table-style="{
-      height: `${height - 128}px`
+      maxHeight: `${height - 128}px`
     }"
     :columns="columns"
     table-header-class="bg-grey-3 table-header-sticky"
@@ -20,7 +20,6 @@
     :filter="filter"
     :filter-method="filterMethod"
     title-class="text-h4"
-    virtual-scroll
     :loading="loading"
   >
     <template #loading>
