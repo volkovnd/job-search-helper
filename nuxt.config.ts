@@ -12,6 +12,29 @@ export default defineNuxtConfig({
     enabled: true,
     telemetry: false
   },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'ru',
+        translate: 'no'
+      },
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+        {
+          name: 'google',
+          content: 'notranslate'
+        }
+      ],
+      link: [
+        {
+          rel: 'shortcut icon',
+          type: 'image/x-icon',
+          href: `${import.meta.env.NUXT_APP_BASE_URL || '/'}favicon.ico`
+        }
+      ]
+    }
+  },
   runtimeConfig: {
     // Ключ для сервиса получения курса валют. Не обязательно!
     exchangeRateAccessKey: '',
