@@ -94,7 +94,6 @@ export default defineNuxtConfig({
     extras: {
       font: null
     },
-    cssAddon: true,
     sassVariables: 'assets/scss/_variables.scss',
     components: {
       defaults: {
