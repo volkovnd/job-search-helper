@@ -71,7 +71,7 @@
         {{ scope.value }}
 
         <q-tooltip v-if="scope.row?.salary && scope.row.salary.currency !== baseCurrency">
-          По курсу 1 {{ scope.row.salary.currency }} равен {{ convertCurrencyToSource(1, scope.row.salary.currency).toFixed(2) }} {{ baseCurrency }}
+          По курсу 1 {{ scope.row.salary.currency }} равен {{ convertToBaseCurrency(scope.row.salary.currency, 1).toFixed(2) }} {{ baseCurrency }}
         </q-tooltip>
       </q-td>
     </template>
@@ -102,7 +102,6 @@ type Filter = {
 const props = withDefaults(defineProps<{
   title?: string
   rows: Vacancy[]
-  currencies?: ExchangeRates
   height?: number
   baseCurrency?: string
   baseCity?: string
@@ -110,14 +109,11 @@ const props = withDefaults(defineProps<{
 }>(), {
   height: 300,
   title: undefined,
-  currencies: () => ({
-    RUB: 1
-  }),
   baseCurrency: 'RUB',
   baseCity: 'Санкт-Петербург'
 })
 
-const { convertCurrencyToSource } = useConvertCurrencyToSource(() => props.currencies)
+const { convertToBaseCurrency } = useCurrenciesStore()
 
 const filter: Filter = reactive({
   min: null,
@@ -212,7 +208,7 @@ const columns: QTableColumn<Vacancy>[] = [
       // Если валюта ЗП отличается от основной
       if (salary.currency !== props.baseCurrency) {
         // В противном случае конвертируем в рубли
-        salary = applyToSalary(salary, (v: number) => Math.round(convertCurrencyToSource(v, salary.currency)))
+        salary = applyToSalary(salary, (v: number) => Math.round(convertToBaseCurrency(salary.currency, v)))
       } else if (salary.calcedBeforeTaxes) {
         salary = applyToSalary(salary, calcSalaryWithoutTaxes)
       }

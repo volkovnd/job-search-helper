@@ -4,7 +4,6 @@
       title="Вакансии"
       class="full-height scroll"
       :rows="vacancies"
-      :currencies="exchangeRates"
       :loading="pending"
       :height="pageHeight"
       :base-city="$config.public.baseCity"
@@ -26,10 +25,6 @@ const { data: vacancies, pending } = await useLazyFetch<Vacancy[]>('/api/vacanci
   default: () => [],
   key: 'vacancies'
 })
-
-const config = useRuntimeConfig()
-
-const { exchangeRates } = await useExchangeRates(config.public.baseCurrency)
 
 const { pageHeight, styleFn } = usePageStyleFn()
 </script>
