@@ -87,6 +87,7 @@ type Filter = {
 const props = withDefaults(defineProps<{
   title?: string
   rows: Vacancy[]
+  currencies?: ExchangeRates
   height?: number
   baseCurrency?: string
   baseCity?: string
@@ -94,11 +95,14 @@ const props = withDefaults(defineProps<{
 }>(), {
   height: 300,
   title: undefined,
+  currencies: () => ({
+    RUB: 1
+  }),
   baseCurrency: 'RUB',
   baseCity: 'Санкт-Петербург'
 })
 
-const { convertCurrencyToSource } = await useExchangeRates(props.baseCurrency)
+const { convertCurrencyToSource } = useConvertCurrencyToSource(() => props.currencies)
 
 const filter: Filter = reactive({
   min: null,

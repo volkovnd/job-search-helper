@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig()
+  const config = useRuntimeConfig(event)
 
   // На случай, если не указан ключ к API
   if (!config.exchangeRateAccessKey) {

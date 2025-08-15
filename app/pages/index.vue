@@ -5,8 +5,11 @@
         <vacancies-table
           title="Вакансии"
           :rows="vacancies"
+          :currencies="exchangeRates"
           :loading="pending"
           :height="pageHeight"
+          :base-city="$config.public.baseCity"
+          :base-currency="$config.public.baseCurrency"
         />
       </q-card-section>
     </q-card>
@@ -14,8 +17,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { QPageProps } from 'quasar'
-
 definePageMeta({
   name: 'vacancies'
 })
@@ -29,18 +30,9 @@ const { data: vacancies, pending } = await useLazyFetch<Vacancy[]>('/api/vacanci
   key: 'vacancies'
 })
 
-const pageHeight = ref(0)
+const config = useRuntimeConfig()
 
-const styleFn: QPageProps['styleFn'] = (offset, height) => {
-  // "offset" is a Number (pixels) that refers to the total
-  // height of header + footer that occupies on screen,
-  // based on the QLayout "view" prop configuration
+const { exchangeRates } = await useExchangeRates(config.public.baseCurrency)
 
-  // this is actually what the default style-fn does in Quasar
-  pageHeight.value = height - offset
-
-  return {
-    height: `${height - offset}px`
-  }
-}
+const { pageHeight, styleFn } = usePageStyleFn()
 </script>

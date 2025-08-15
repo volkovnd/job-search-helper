@@ -3,6 +3,9 @@ export const useExchangeRates = async (source: string) => {
     query: {
       source
     },
+    key() {
+      return `currencies-${source}`
+    },
     default: () => ({
       RUB: 1,
       AED: 0.04587,
@@ -170,13 +173,8 @@ export const useExchangeRates = async (source: string) => {
     })
   })
 
-  const convertCurrencyToSource = (count: number, currency: string) => {
-    return (count / (exchangeRates.value[currency] ?? 1))
-  }
-
   return {
     exchangeRates,
-    pending,
-    convertCurrencyToSource
+    pending
   }
 }

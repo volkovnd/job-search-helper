@@ -12,36 +12,22 @@ export default defineNuxtConfig({
     enabled: true,
     telemetry: false
   },
-  app: {
-    head: {
-      htmlAttrs: {
-        lang: 'ru',
-        translate: 'no'
-      },
-      title: 'Job helper',
-      meta: [
-        {
-          name: 'google',
-          content: 'notranslate'
-        }
-      ],
-      link: [
-        {
-          rel: 'shortcut icon',
-          type: 'image/x-icon',
-          href: `${import.meta.env.NUXT_APP_BASE_URL || '/'}favicon.ico`
-        }
-      ]
-    }
-  },
   runtimeConfig: {
     // Ключ для сервиса получения курса валют. Не обязательно!
-    exchangeRateAccessKey: ''
+    exchangeRateAccessKey: '',
+    public: {
+      baseCurrency: 'RUB',
+      baseCity: 'Санкт-Петербург'
+    }
   },
   future: {
     compatibilityVersion: 4
   },
   compatibilityDate: '2025-05-15',
+
+  typescript: {
+    strict: true
+  },
   telemetry: {
     enabled: false
   },
@@ -84,6 +70,7 @@ export default defineNuxtConfig({
     lang: 'ru',
     extras: {
       font: null
+
     },
     cssAddon: true,
     sassVariables: 'assets/scss/_variables.scss',
