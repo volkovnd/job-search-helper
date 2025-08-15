@@ -1,6 +1,9 @@
 <template>
   <q-table
-    v-model:pagination="pagination"
+    row-key="id"
+    :pagination="{
+      rowsPerPage: 0
+    }"
     hide-pagination
     :title="title"
     wrap-cells
@@ -116,11 +119,6 @@ const filterMethod: NonNullable<QTableProps['filterMethod']> = (rows: readonly V
     return true
   })
 }
-
-const pagination = ref<NonNullable<QTableProps['pagination']>>({
-  rowsPerPage: 0
-})
-
 const columns: QTableColumn<Vacancy>[] = [
   {
     field: 'host',

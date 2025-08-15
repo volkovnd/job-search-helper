@@ -1,13 +1,8 @@
 export default defineEventHandler(async () => {
-  const sleep = (ms: number) => new Promise((resolve) => {
-    setTimeout(resolve, ms)
-  })
-
-  await sleep(4500)
-
   // Возвращаем список вакансий
   const vacancies: Vacancy[] = [
     {
+      id: 1,
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000155531',
       salary: {
@@ -22,6 +17,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 2,
       host: 'habr',
       url: 'https://spb.hh.ru/vacancy/112467359',
       salary: {
@@ -35,6 +31,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 3,
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000159400',
       location: {
@@ -42,6 +39,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 4,
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000154003',
       location: {
@@ -50,6 +48,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 5,
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000148569',
       location: {
@@ -58,6 +57,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 6,
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000103382',
       location: {
@@ -66,6 +66,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 7,
       host: 'habr',
       url: 'https://career.habr.com/vacancies/1000158927',
       location: {
@@ -75,6 +76,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 8,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122297190?from=applicant_recommended&hhtmFrom=main',
       salary: {
@@ -89,6 +91,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 9,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122100491?query=vue&hhtmFrom=vacancy_search_list',
       salary: {
@@ -103,6 +106,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 10,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122575814?query=vue&hhtmFrom=vacancy_search_list',
       salary: {
@@ -117,6 +121,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 11,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122224028?query=vue&hhtmFrom=vacancy_search_list',
       location: {
@@ -124,6 +129,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 12,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/121898819?query=vue&hhtmFrom=vacancy_search_list',
       location: {
@@ -137,6 +143,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 13,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122595294?query=vue&hhtmFrom=vacancy_search_list',
       location: {
@@ -150,6 +157,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 14,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122222171?query=vue&hhtmFrom=vacancy_search_list',
       location: {
@@ -162,6 +170,7 @@ export default defineEventHandler(async () => {
       }
     },
     {
+      id: 15,
       host: 'hh',
       url: 'https://spb.hh.ru/vacancy/122344165?query=vue&hhtmFrom=vacancy_search_list',
       location: {

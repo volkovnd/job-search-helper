@@ -11,6 +11,7 @@ export type Location = {
 }
 
 export type Vacancy = {
+  id: number
   host: string
   url: string
   salary?: Salary
