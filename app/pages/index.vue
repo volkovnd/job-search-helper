@@ -1,18 +1,15 @@
 <template>
   <q-page :style-fn="styleFn">
-    <q-card class="full-height scroll">
-      <q-card-section class="q-pa-none">
-        <vacancies-table
-          title="Вакансии"
-          :rows="vacancies"
-          :currencies="exchangeRates"
-          :loading="pending"
-          :height="pageHeight"
-          :base-city="$config.public.baseCity"
-          :base-currency="$config.public.baseCurrency"
-        />
-      </q-card-section>
-    </q-card>
+    <vacancies-table
+      title="Вакансии"
+      class="full-height scroll"
+      :rows="vacancies"
+      :currencies="exchangeRates"
+      :loading="pending"
+      :height="pageHeight"
+      :base-city="$config.public.baseCity"
+      :base-currency="$config.public.baseCurrency"
+    />
   </q-page>
 </template>
 

@@ -9,7 +9,6 @@
     hide-pagination
     :title="title"
     wrap-cells
-    flat
     square
     virtual-scroll
     :virtual-scroll-sticky-size-start="48"
