@@ -1,5 +1,7 @@
 <template>
   <q-table
+    :rows="rows"
+    :columns="columns"
     row-key="id"
     :pagination="{
       rowsPerPage: 0
@@ -9,11 +11,11 @@
     wrap-cells
     flat
     square
-    :rows="rows"
+    virtual-scroll
+    :virtual-scroll-sticky-size-start="48"
     :table-style="{
       maxHeight: `${height - 128}px`
     }"
-    :columns="columns"
     table-header-class="bg-grey-3 table-header-sticky"
     separator="cell"
     :table-row-class-fn="rowClassFn"
