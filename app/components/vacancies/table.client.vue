@@ -51,6 +51,21 @@
       />
     </template>
 
+    <template #body-cell-host="scope">
+      <q-td :props="scope">
+        <div class="flex items-center">
+          <q-icon
+            :name="scope.value"
+            size="21px"
+            class="q-mr-md"
+          />
+          <div>
+            {{ scope.value }}
+          </div>
+        </div>
+      </q-td>
+    </template>
+
     <template #body-cell-salary="scope">
       <q-td :props="scope">
         {{ scope.value }}
