@@ -3,7 +3,7 @@ export default defineNuxtPlugin({
   name: 'currencies',
   parallel: true,
   setup(nuxtApp) {
-    nuxtApp.hook('app:beforeMount', () => {
+    nuxtApp.hook('vue:setup', () => {
       const currenciesStore = useCurrenciesStore()
 
       currenciesStore.loadExchangeRates()
