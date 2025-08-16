@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
@@ -47,6 +49,19 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
   compatibilityDate: '2025-05-15',
+
+  nitro: {
+    storage: {
+      currencies: {
+        driver: 'fs-lite',
+        base: fileURLToPath(new URL('./data/currencies', import.meta.url))
+      },
+      vacancies: {
+        driver: 'fs-lite',
+        base: fileURLToPath(new URL('./data/vacancies', import.meta.url))
+      }
+    }
+  },
 
   typescript: {
     strict: true
