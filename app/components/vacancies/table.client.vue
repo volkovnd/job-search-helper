@@ -103,6 +103,7 @@ const props = withDefaults(defineProps<{
   title?: string
   rows: Vacancy[]
   height?: number
+  currencies?: ExchangeRates
   baseCurrency?: string
   baseCity?: string
   loading?: boolean
@@ -110,10 +111,20 @@ const props = withDefaults(defineProps<{
   height: 300,
   title: undefined,
   baseCurrency: 'RUB',
-  baseCity: 'Санкт-Петербург'
+  baseCity: 'Санкт-Петербург',
+  currencies: () => ({
+  })
 })
 
-const { convertToBaseCurrency } = useCurrenciesStore()
+const getExchangeRate = (currency: string) => props.currencies[currency] ?? 1
+
+const convertCurrency = (inputCurrency: string, outputCurrency: string, count = 1) => {
+  return count * (getExchangeRate(outputCurrency) / getExchangeRate(inputCurrency))
+}
+
+const convertToBaseCurrency = (currency: string, count: number) => {
+  return convertCurrency(currency, 'RUB', count)
+}
 
 const filter: Filter = reactive({
   min: null,
