@@ -116,6 +116,7 @@ const props = withDefaults(defineProps<{
   })
 })
 
+// Утилиты для работы с курсами валют
 const getExchangeRate = (currency: string) => props.currencies[currency] ?? 1
 
 const convertCurrency = (inputCurrency: string, outputCurrency: string, count = 1) => {
@@ -123,9 +124,10 @@ const convertCurrency = (inputCurrency: string, outputCurrency: string, count = 
 }
 
 const convertToBaseCurrency = (currency: string, count: number) => {
-  return convertCurrency(currency, 'RUB', count)
+  return convertCurrency(currency, props.baseCurrency, count)
 }
 
+// Фильтрация данных в таблице
 const filter: Filter = reactive({
   min: null,
   showNotSpecified: true
@@ -145,6 +147,8 @@ const filterMethod: NonNullable<QTableProps['filterMethod']> = (rows: readonly V
     return true
   })
 }
+
+// Описание колонок к таблице
 const columns: QTableColumn<Vacancy>[] = [
   {
     field: 'host',
@@ -246,6 +250,7 @@ const columns: QTableColumn<Vacancy>[] = [
   }
 ]
 
+// Функция для расчета классов, которые необходимо применить для строчки в таблице
 const rowClassFn: NonNullable<QTableProps['tableRowClassFn']> = (row: Vacancy) => {
   if (row.location?.city === props.baseCity) {
     return 'vacancy-in-main-city'

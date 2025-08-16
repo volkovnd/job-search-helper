@@ -5,7 +5,7 @@
       class="full-height scroll"
       :rows="vacancies"
       :currencies="exchangeRates"
-      :loading="pending"
+      :loading="loadingVacancies || loadingExchangeRates"
       :height="pageHeight"
       :base-city="$config.public.baseCity"
       :base-currency="$config.public.baseCurrency"
@@ -24,12 +24,22 @@ useSeoMeta({
 
 const config = useRuntimeConfig()
 
-const { data: vacancies, pending } = await useLazyFetch<Vacancy[]>('/api/vacancies', {
+const { data: vacancies, pending: loadingVacancies } = await useLazyFetch<Vacancy[]>('/api/vacancies', {
   default: () => [],
   key: 'vacancies'
 })
 
-const { data: exchangeRates } = await useExchangeRatesFetch(config.public.baseCurrency)
+const { data: exchangeRates, pending: loadingExchangeRates } = await useLazyFetch<ExchangeRates>('/api/exchange-rates', {
+  key: `exchange-rates`,
+  query: {
+    source: config.public.baseCurrency
+  },
+  default() {
+    return {
+      [config.public.baseCurrency]: 1
+    }
+  }
+})
 
 const { pageHeight, styleFn } = usePageStyleFn()
 </script>

@@ -1,5 +1,6 @@
 import type { QPageProps } from 'quasar'
 
+// composable для простановки размеров блока с содержимым страницы
 export const usePageStyleFn = () => {
   const pageHeight = ref(0)
 
